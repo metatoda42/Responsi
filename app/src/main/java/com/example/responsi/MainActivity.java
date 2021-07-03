@@ -1,21 +1,13 @@
 package com.example.responsi;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
     private BottomNavigationView navbar;
@@ -52,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment=new FragmentHome();
                 break;
             case R.id.rujuk:
-                fragment=new FragmentRujuk();
+                //fragment=new FragmentRujuk();
                 break;
 
 

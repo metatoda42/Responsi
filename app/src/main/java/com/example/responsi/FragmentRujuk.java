@@ -1,39 +1,32 @@
 package com.example.responsi;
 
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-
-public class FragmentRujuk extends Fragment {
-
-
-
-
-
-    public FragmentRujuk() {
-
-    }
-
-
-    public static FragmentRujuk newInstance() {
-        FragmentRujuk fragment = new FragmentRujuk();
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rujuk, container, false);
-    }
-}
+//public class FragmentRujuk extends Fragment {
+//    AdapterRujuk adapter;
+//    VirusDataService virusDataService;
+//    String[][] dataList;
+//
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        virusDataService = new VirusDataService(getActivity());
+//        callAPI();
+//        return inflater.inflate(R.layout.fragment_rujuk, container, false);
+//    }
+//
+//    public void callAPI() {
+//        virusDataService.getRujuk(new VirusDataService.VolleyResponseListener() {
+//
+//            @Override
+//            public void onError(String message) {
+//                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onResponse(List<DataKasus> konten) {
+//                dataList = konten;
+//                adapter = new AdapterRujuk(getActivity(),dataList);
+//            }
+//
+//        });
+//    }
+//}

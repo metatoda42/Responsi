@@ -36,7 +36,7 @@
             app:layout_constraintGuide_percent="0.8" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textAlamat"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -64,7 +64,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textRS"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -78,7 +78,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnMap"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_marginStart="8dp"
