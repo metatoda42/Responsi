@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/kasus"
+        android:tooltipText="kasus"
+        android:title="KASUS"
+        android:icon="@drawable/ic_virus"
+        />
+
+    <item
+        android:id="@+id/rujuk"
+        android:tooltipText="rujuk"
+        android:title="RUJUK"
+        android:icon="@drawable/ic_hospital"
+        />
+</menu>
