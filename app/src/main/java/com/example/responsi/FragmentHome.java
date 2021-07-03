@@ -1,35 +1,47 @@
 package com.example.responsi;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 public class FragmentHome extends Fragment {
+    AdapterHome adapter;
+    VirusDataService virusDataService;
+    String[][] dataList;
 
-    public FragmentHome() {
-
-    }
-
-
-    public static FragmentHome newInstance() {
-        FragmentHome fragment = new FragmentHome();
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        getQuote();
+
+        adapter = new AdapterHome(getContext(),dataList);
+        virusDataService = new VirusDataService(getContext());
+
+
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
+
+    public void getQuote() {
+        virusDataService.getKasus(new VirusDataService.VolleyResponseListener() {
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(String[][] konten) {
+                dataList = konten;
+            }
+
+        });
+    }
+
+
 }

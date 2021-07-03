@@ -9,6 +9,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class VirusDataService {
     Context context;
@@ -20,10 +21,10 @@ public class VirusDataService {
     public interface VolleyResponseListener {
         void onError(String message);
 
-        void onResponse(String[] konten);
+        void onResponse(String[][] konten);
     }
     //Fungsi untuk mendapatkan data covid
-    public void getQuoteContent(final VolleyResponseListener volleyResponseListener){
+    public void getKasus(final VolleyResponseListener volleyResponseListener){
         String url ="https://covid19-public.digitalservice.id/api/v1/rekapitulasi_v2/jabar/kumulatif";
 
 
@@ -31,7 +32,8 @@ public class VirusDataService {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url,null,
                 new Response.Listener<JSONArray>() {
                    JSONArray data;
-                   String[] kasus;
+                   JSONObject kasus1;
+                   String[][] kasus;
                     @Override
                     public void onResponse(JSONArray response) {
                         for (int i = response.length()-1; i>=0; i--) {
@@ -43,10 +45,18 @@ public class VirusDataService {
                         }
 
                         try {
+                            //Ini Kodingan Amatiran, iya, tapi bodo lah...
+                            //Intinya dari JsonArray dijadiin JsonObject trus dijadiin StringArray
+                            // Dua Dimensi
                             JSONArray quoteContent = data;
-                            for(int i = 0; i<6; i++){
-                                kasus[i] = quoteContent.getString(i);
+                            for(int i = 0; i<7; i++){
+                                kasus1 = quoteContent.getJSONObject(i);
+                                kasus[i][0]= kasus1.getString("SUSPECT");
+                                kasus[i][1]= kasus1.getString("CLOSECONTACT");
+                                kasus[i][2]= kasus1.getString("CONFIRMATION");
+
                             }
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
