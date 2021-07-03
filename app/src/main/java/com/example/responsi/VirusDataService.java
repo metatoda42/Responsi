@@ -4,28 +4,24 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
-
 public class VirusDataService {
-    List<DataKasus> dataKasuses;
     Context context;
-
 
     public VirusDataService(Context ctx) {
         this.context = ctx;
     }
 
     public interface VolleyResponseListener {
-
         void onError(String message);
 
-        void onResponse(List<DataKasus> konten);
+        void onResponse(String[][] konten);
     }
     //Fungsi untuk mendapatkan data covid
     public void getKasus(final VolleyResponseListener volleyResponseListener){
@@ -34,63 +30,51 @@ public class VirusDataService {
 
         // Request a string response from the provided URL.
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url,null,
-                response -> {
+                new Response.Listener<JSONObject>() {
+                    JSONArray data, kasus1;
+                    JSONObject kasus2;
+                    String[][] kasus;
+                    @Override
+                    public void onResponse(JSONObject response) {
                         try {
-                            JSONObject kasusObject = response;//objek
-                            JSONArray kasusData = response.getJSONArray("content");
-                            DataKasus kasus = new DataKasus();
-                            kasus.setTanggal(kasusObject.getString("tanggal"));
-
-                            dataKasuses.add(kasus);
-                            Toast.makeText(context, "oooooooo", Toast.LENGTH_LONG).show();
+                            data=response.getJSONArray("content");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        for (int i = data.length()-1; i>=0; i--) {
+                            try {
+                                kasus1.put(data.getJSONObject(i));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
-                    volleyResponseListener.onResponse(dataKasuses);
-                    Toast.makeText(context, "Over Here!!!", Toast.LENGTH_SHORT).show();
+                        try {
+                            //Ini Kodingan Amatiran, iya, tapi bodo lah...
+                            //Intinya dari JsonArray dijadiin JsonObject trus dijadiin StringArray
+                            // Dua Dimensi
+                            JSONArray quoteContent = kasus1;
+                            for(int i = 0; i<7; i++){
+                                kasus2 = quoteContent.getJSONObject(i);
+                                kasus[i][0]= kasus2.getString("CONFIRMATION");
+                                kasus[i][1]= kasus2.getString("confirmation_selesai");
+                                kasus[i][2]= kasus2.getString("confirmation_meninggal");
+                                kasus[i][3]= kasus2.getString("tanggal");
+
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                        volleyResponseListener.onResponse(kasus);
+                    }
                 }, error -> {
-            Toast.makeText(context, "error semua", Toast.LENGTH_LONG).show();
-            System.out.println(error);
+            Toast.makeText(context, "JANCUK", Toast.LENGTH_SHORT).show();
             volleyResponseListener.onError("FFFFFFUUUUUUCCCKKKK");
         });
         Simpleton.getInstance(context).addToRequestQueue(request);
     }
-
-//    public void getRujuk(final VolleyResponseListener volleyResponseListener) {
-//        String url = "https://covid19-public.digitalservice.id/api/v1/rekapitulasi_v2/jabar/kumulatif";
-//        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-//                new Response.Listener<JSONArray>() {
-//                    JSONArray data;
-//                    JSONObject rujuk1;
-//                    String[][] rujuk;
-//
-//                    @Override
-//                    public void onResponse(JSONArray response) {
-//                        try {
-//                            JSONArray quoteContent = data;
-//                            for (int i = 0; i < response.length(); i++) {
-//                                rujuk1 = quoteContent.getJSONObject(i);
-//                                rujuk[i][0] = rujuk1.getString("nama");
-//                                rujuk[i][1] = rujuk1.getString("alamat");
-//                                rujuk[i][2] = rujuk1.getString("longitude");
-//                                rujuk[i][3] = rujuk1.getString("latitude");
-//
-//                            }
-//
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
-//                        }
-//                        volleyResponseListener.onResponse(rujuk);
-//                    }
-//                }, error -> {
-//            Toast.makeText(context, "JANCUK", Toast.LENGTH_SHORT).show();
-//            volleyResponseListener.onError("FFFFFFUUUUUUCCCKKKK");
-//        });
-//        Simpleton.getInstance(context).addToRequestQueue(request);
-//    }
-
 }
