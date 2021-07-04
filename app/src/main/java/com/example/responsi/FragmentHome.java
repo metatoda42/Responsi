@@ -16,12 +16,9 @@ public class FragmentHome extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getKasus();
-
         adapter = new AdapterHome(getContext(),dataList);
         virusDataService = new VirusDataService(getContext());
-
-
+        getKasus();
 
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
