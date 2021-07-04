@@ -9,17 +9,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> {
-    private String[][] dataList;
-    private Context context;
-    private String[] konfirmasi = dataList[0];
-    //Dan Seterusnya, Lanjutin nanti lagi, mau makan
+import java.util.ArrayList;
 
-    public AdapterHome(Context context, String[][] dataList) {
+public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> {
+
+    private ArrayList<KasusContentItem> kasusContentItems = new ArrayList<>();
+    Context context;
+
+    public AdapterHome(Context context) {
         this.context = context;
-        this.dataList = dataList;
+    }
+
+    public void setData(ArrayList<KasusContentItem> items){
+        kasusContentItems.clear();
+        kasusContentItems.addAll(items);
         notifyDataSetChanged();
     }
+    //Dan Seterusnya, Lanjutin nanti lagi, mau makan
+
 
     @NonNull
     @Override
@@ -31,22 +38,28 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull AdapterHome.ViewHolder holder, int position) {
-
+        holder.tanggal.setText(kasusContentItems.get(position).getTanggal().toString());
+        holder.konfirmasi.setText(kasusContentItems.get(position).getCONFIRMATION());
+        holder.tewas.setText(kasusContentItems.get(position).getConfirmationMeninggal());
+        holder.sembuh.setText(kasusContentItems.get(position).getConfirmationSelesai());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return kasusContentItems.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textView;
+        TextView tanggal,konfirmasi, sembuh, tewas;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textView = itemView.findViewById(R.id.text_view);
+            tanggal = itemView.findViewById(R.id.textTanggal);
+            konfirmasi = itemView.findViewById(R.id.textKonfirmasi);
+            sembuh = itemView.findViewById(R.id.textSembuh);
+            tewas = itemView.findViewById(R.id.textMati);
         }
     }
 }

@@ -36,7 +36,7 @@
             app:layout_constraintGuide_percent="0.66" />
 
         <TextView
-            android:id="@+id/textMati"
+            android:id="@+id/textTanggal"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textDate"
+            android:id="@+id/textMati"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

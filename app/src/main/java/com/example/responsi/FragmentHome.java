@@ -13,21 +13,17 @@ public class FragmentHome extends Fragment {
     VirusDataService virusDataService;
     String[][] dataList;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getQuote();
-
         adapter = new AdapterHome(getContext(),dataList);
         virusDataService = new VirusDataService(getContext());
-
-
+        getKasus();
 
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-    public void getQuote() {
+    public void getKasus() {
         virusDataService.getKasus(new VirusDataService.VolleyResponseListener() {
 
             @Override
